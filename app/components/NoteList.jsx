@@ -1,5 +1,6 @@
 function NoteList({ notes }) {
   const { data } = notes;
+  console.log(data);
   return (
     <ul className="container py-8 mx-auto gap-4 grid grid-cols-4 auto-rows-max">
       {data.map((result) => (

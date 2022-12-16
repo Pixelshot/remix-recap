@@ -3,13 +3,21 @@ import {
   useActionData,
   useTransition as useNavigation,
 } from '@remix-run/react';
+import { useEffect, useRef } from 'react';
 
 export default function NewNote() {
   const navigation = useNavigation();
-  console.log(navigation);
   const isSubmitting = navigation.state === 'submitting';
+  let formRef = useRef();
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      formRef.current?.reset();
+      // taskInputRef.current?.focus();
+    }
+  }, [isSubmitting]);
   return (
-    <Form method="post">
+    <Form method="post" ref={formRef}>
       <div className="my-6">
         <label
           htmlFor="title"
@@ -20,6 +28,7 @@ export default function NewNote() {
           id="title"
           name="title"
           placeholder="Title..."
+          // ref={taskInputRef}
           required
           className="border border-gblue text-gray-900 rounded-lg focus:ring-gmustard focus:border-blue-500 block w-1/2 mx-auto p-2.5 bg-gblue dark:border-gray-600 placeholder:font-playfair italic dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />

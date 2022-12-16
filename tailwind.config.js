@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
@@ -9,6 +11,9 @@ module.exports = {
         gskyblue: '#A8D0E6',
         gblue: '#374785',
         gdarkblue: '#24305E',
+      },
+      fontFamily: {
+        playfair: ['"Playfair Display"', ...defaultTheme.fontFamily.sans],
       },
     },
   },

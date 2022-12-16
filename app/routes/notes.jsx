@@ -8,7 +8,9 @@ export default function NotesPage() {
   const notes = useLoaderData();
   return (
     <main className="text-center text-3xl py-8">
-      <h1>Welcome to your notes page</h1>
+      <h1 className="font-playfair italic text-6xl">
+        Welcome to your notes page
+      </h1>
       <NewNote />
       <NoteList notes={notes} />
       <button

@@ -33,10 +33,12 @@ export async function action({ request }) {
   const formData = await request.formData();
   const noteData = Object.fromEntries(formData);
   const { title, content } = noteData;
+
   const { data, error } = await supabase
     .from('notes')
     .insert({ title, content })
     .select();
   const notes = { data, error };
+
   return notes;
 }

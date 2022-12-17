@@ -13,15 +13,25 @@ export default function NotesPage() {
 }
 
 export async function loader({ params }) {
-  const { data } = await supabase.from('notes').select('id');
+  const { data, error } = await supabase
+    .from('notes')
+    .select()
+    .eq('id', Object.values(params).toString());
+  // console.log(Object.values(params));
+  // console.log('data: ', data);
+  const selectedNote = data.map((note) => note.id);
+  console.log(selectedNote);
+  return selectedNote;
+  // const { data } = await supabase.from('notes').select('id');
 
-  const supaId = Number(Object.values(params));
-  const selectedNote = data.filter((note) => note.id === supaId);
+  // const supaId = Number(Object.values(params));
+  // const selectedNote = data.filter((note) => note.id === supaId);
 
-  if (!selectedNote) {
-    throw json({ message: `Page does not exist` }, { status: 404 });
-  }
-  return Number(Object.values(selectedNote[0]));
+  // if (!selectedNote) {
+  //   throw json({ message: `Page does not exist` }, { status: 404 });
+  // }
+  // return Number(Object.values(selectedNote[0]));
+  return 'hello';
 }
 
 export function ErrorBoundary({ error }) {

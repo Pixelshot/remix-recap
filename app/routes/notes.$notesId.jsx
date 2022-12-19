@@ -1,5 +1,4 @@
 import { Link, useLoaderData, useCatch } from '@remix-run/react';
-import { json } from '@remix-run/node';
 import { supabase } from '../client';
 
 export default function NotesPage() {
@@ -7,7 +6,6 @@ export default function NotesPage() {
   return (
     <div className="">
       <h1>Hello from {selectedNote}</h1>
-      <h1>Hello from selectedNote</h1>
     </div>
   );
 }
@@ -15,23 +13,12 @@ export default function NotesPage() {
 export async function loader({ params }) {
   const { data, error } = await supabase
     .from('notes')
-    .select()
+    .select('id')
     .eq('id', Object.values(params).toString());
-  // console.log(Object.values(params));
-  // console.log('data: ', data);
-  const selectedNote = data.map((note) => note.id);
-  console.log(selectedNote);
+
+  let selectedNote = data.map((note) => note.id);
+  selectedNote = selectedNote.toString();
   return selectedNote;
-  // const { data } = await supabase.from('notes').select('id');
-
-  // const supaId = Number(Object.values(params));
-  // const selectedNote = data.filter((note) => note.id === supaId);
-
-  // if (!selectedNote) {
-  //   throw json({ message: `Page does not exist` }, { status: 404 });
-  // }
-  // return Number(Object.values(selectedNote[0]));
-  return 'hello';
 }
 
 export function ErrorBoundary({ error }) {
